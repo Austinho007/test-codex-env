@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smiley Rain</title>
+<style>
+ html, body {
+   height: 100%;
+   margin: 0;
+ }
+ body {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   background-color: #fefefe;
+   overflow: hidden;
+   font-size: 5rem;
+ }
+ #smiley {
+   cursor: pointer;
+ }
+ .rain {
+   position: absolute;
+   animation: fall linear 2s forwards;
+ }
+ @keyframes fall {
+   from { top: -50px; }
+   to { top: 110vh; }
+ }
+</style>
+</head>
+<body>
+<div id="smiley">😊</div>
+<script>
+const smiley = document.getElementById('smiley');
+function createRaindrop() {
+  const drop = document.createElement('div');
+  drop.classList.add('rain');
+  drop.textContent = '😊';
+  drop.style.left = Math.random() * 100 + 'vw';
+  drop.style.fontSize = (Math.random() * 3 + 1) + 'rem';
+  document.body.appendChild(drop);
+  drop.addEventListener('animationend', () => drop.remove());
+}
+function startRain() {
+  const interval = setInterval(createRaindrop, 200);
+  smiley.removeEventListener('click', startRain);
+}
+smiley.addEventListener('click', startRain);
+</script>
+</body>
+</html>
